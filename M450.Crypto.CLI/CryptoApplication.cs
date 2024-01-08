@@ -5,10 +5,10 @@ namespace M450.Crypto.CLI;
 
 public class CryptoApplication
 {
+    private List<ICryptoData> cryptos = new List<ICryptoData>();
     public CryptoApplication()
     {
-        BitcoinData x = new();
-        x.GetPrice();
+        cryptos.Add(new BitcoinData());
     }
     
     public void Run(CryptoArguments arguments)
@@ -17,6 +17,21 @@ public class CryptoApplication
         {
             RunListCommand();
         }
+        else if (arguments.Price)
+        {
+            RunGetPriceCommand(arguments);  
+        }
+    }
+
+    private void RunGetPriceCommand(CryptoArguments arguments)
+    {
+        var service = cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
+        if (service == null)
+        {
+            Console.WriteLine($"Error: Currency: \"{arguments.CryptoCurrency}\" is not supported.");
+            return;
+        }
+        Console.WriteLine($"Price of {arguments.CryptoCurrency} is currently {service.GetCurrentPrice()}$");
     }
     
     private void RunListCommand()

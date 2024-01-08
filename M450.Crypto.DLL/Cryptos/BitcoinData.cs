@@ -4,14 +4,26 @@ namespace M450.Crypto.DLL.Cryptos;
 
 public class BitcoinData : WebdriverManager, ICryptoData
 {
-    public decimal GetPrice()
+    public BitcoinData() : base()
+    {
+        
+    }
+    
+    public string Currency
+    {
+        get
+        {
+            return "BTC";
+        }
+    }
+
+    public decimal GetCurrentPrice()
     {
         driver.Url = "https://www.blockchain.com/explorer/assets/btc";
 
         var element = driver.FindElement(By.ClassName("sc-bb87d037-10"));
-        var value = element.Text;
-        decimal price;
-        decimal.TryParse(value, out price);
+        var value = element.Text.Replace("$", "").Replace(",","");
+        decimal price = decimal.Parse(value);
         return price;
     }
 

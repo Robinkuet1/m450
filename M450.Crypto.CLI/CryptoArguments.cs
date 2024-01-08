@@ -17,7 +17,10 @@ public class CryptoArguments
 
     [Option('t', Required = false, HelpText = "Date")]
     public DateTime Date { get; set; }
-
+    
+    [Option('p', Required = false, HelpText = "")]
+    public bool Price { get; set; }
+    
     [Option('l', HelpText = "List")]
     public bool List { get; set; }
 }
