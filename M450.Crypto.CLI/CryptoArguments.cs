@@ -23,4 +23,7 @@ public class CryptoArguments
     
     [Option('l', HelpText = "List")]
     public bool List { get; set; }
+    
+    [Option('v', Required = false, HelpText = "")]
+    public bool Volume { get; set; }
 }

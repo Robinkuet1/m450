@@ -4,6 +4,6 @@ public interface ICryptoData
 {
     public string Currency { get; }
     public decimal GetCurrentPrice();
-    public decimal GetTransactionVolume(TimeSpan s);
+    public decimal GetTransactionVolume();
     public decimal GetTransactionFees(TimeSpan s);
 }

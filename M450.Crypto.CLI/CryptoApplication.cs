@@ -33,6 +33,16 @@ public class CryptoApplication
         }
         Console.WriteLine($"Price of {arguments.CryptoCurrency} is currently {service.GetCurrentPrice()}$");
     }
+    private void RunGetTransactionVolumeCommand(CryptoArguments arguments)
+    {
+        var service = cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
+        if (service == null)
+        {
+            Console.WriteLine($"Error: Currency: \"{arguments.CryptoCurrency}\" is not supported.");
+            return;
+        }
+        Console.WriteLine($"Price of {arguments.CryptoCurrency} is currently {service.GetTransactionVolume()}$");
+    }
     
     private void RunListCommand()
     {
