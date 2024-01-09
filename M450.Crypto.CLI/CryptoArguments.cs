@@ -10,7 +10,7 @@ public enum CryptoCurrencies
 public class CryptoArguments
 {
     [Option('c', Required = false, HelpText = "Crypto currency. Use crypto -l to get available currencies")]
-    public string CryptoCurrency { get; set; }
+    public string? CryptoCurrency { get; set; }
 
     [Option('b', Required = false, HelpText = "Block")]
     public int BaseValue { get; set; }
