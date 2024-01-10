@@ -1,3 +1,4 @@
+using M450.Crypto.DLL;
 using M450.Crypto.DLL.Cryptos;
 using Moq;
 using Xunit;
@@ -11,11 +12,11 @@ namespace M450.Crypto.CLI.Tests
         {
             // Arrange
             var cryptoDataMock = new Mock<ICryptoData>();
-            cryptoDataMock.Setup(x => x.Currency).Returns("BTC");
+            cryptoDataMock.Setup(x => x.Currency).Returns(CryptoCurrency.BTC);
             cryptoDataMock.Setup(x => x.GetCurrentPrice()).Returns(1000);
 
             var cryptos = new List<ICryptoData> { cryptoDataMock.Object };
-            var arguments = new CryptoArguments { Price = true, CryptoCurrency = "BTC" };
+            var arguments = new CryptoArguments { Price = true, CryptoCurrency = CryptoCurrency.BTC };
 
             var cryptoApp = new CryptoApplication(cryptos, new ConsoleWrapper());
 
@@ -30,7 +31,7 @@ namespace M450.Crypto.CLI.Tests
         public void Run_GetPriceCommand_CallsConsoleWriteLine()
         {
             // Arrange
-            var cryptoCurrency = "BTC";
+            var cryptoCurrency = CryptoCurrency.BTC;
             var cryptoDataMock = new Mock<ICryptoData>();
             cryptoDataMock.Setup(x => x.Currency).Returns(cryptoCurrency);
             cryptoDataMock.Setup(x => x.GetCurrentPrice()).Returns(1000);
@@ -54,9 +55,9 @@ namespace M450.Crypto.CLI.Tests
         public void Run_GetPriceCommand_InvalidCurrency_CallsConsoleWriteLineWithError()
         {
             // Arrange
-            var cryptoCurrency = "BTC";
+            var cryptoCurrency = CryptoCurrency.SOL;
             var cryptoDataMock = new Mock<ICryptoData>();
-            cryptoDataMock.Setup(x => x.Currency).Returns("ETH");
+            cryptoDataMock.Setup(x => x.Currency).Returns(CryptoCurrency.BTC);
 
             var cryptos = new List<ICryptoData> { cryptoDataMock.Object };
             var arguments = new CryptoArguments { Price = true, CryptoCurrency = cryptoCurrency };
@@ -78,7 +79,7 @@ namespace M450.Crypto.CLI.Tests
         {
             // Arrange
             var cryptoDataMock = new Mock<ICryptoData>();
-            cryptoDataMock.Setup(x => x.Currency).Returns("BTC");
+            cryptoDataMock.Setup(x => x.Currency).Returns(CryptoCurrency.BTC);
 
             var cryptos = new List<ICryptoData> { cryptoDataMock.Object };
 

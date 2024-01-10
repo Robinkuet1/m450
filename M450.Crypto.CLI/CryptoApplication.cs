@@ -1,4 +1,5 @@
 using CommandLine;
+using M450.Crypto.DLL;
 using M450.Crypto.DLL.Cryptos;
 
 namespace M450.Crypto.CLI;
@@ -49,7 +50,7 @@ public class CryptoApplication
     private void RunListCommand()
     {
         console.WriteLine("Available Crypto Currencies are:");
-        foreach (var c in Enum.GetValues(typeof(CryptoCurrencies)))
+        foreach (var c in Enum.GetValues(typeof(CryptoCurrency)))
         {
             console.WriteLine($"\t-{c.ToString()}");
         }

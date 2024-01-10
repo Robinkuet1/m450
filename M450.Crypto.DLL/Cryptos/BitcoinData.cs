@@ -11,10 +11,7 @@ public class BitcoinData : ICryptoData
         driver.Url = "https://www.blockchain.com/explorer/assets/btc";
     }
 
-    public string Currency
-    {
-        get { return "BTC"; }
-    }
+    public CryptoCurrency Currency => CryptoCurrency.BTC;
 
     public decimal GetCurrentPrice()
     {
