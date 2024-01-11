@@ -1,6 +1,7 @@
 using CommandLine;
 using M450.Crypto.DLL;
 using M450.Crypto.DLL.Cryptos;
+using OpenQA.Selenium;
 
 namespace M450.Crypto.CLI;
 public class CryptoApplication
@@ -20,9 +21,16 @@ public class CryptoApplication
         {
             RunListCommand();
         }
-        else if (arguments.Price)
+        else
         {
+            var currentConsole = Console.Out;
+            Console.SetOut(TextWriter.Null);
+            DLL.WebDriverManager.Initialize();
+            Console.SetOut(currentConsole);
+            
             RunGetPriceCommand(arguments);
+            
+            DLL.WebDriverManager.Destroy();
         }
     }
 

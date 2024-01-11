@@ -4,17 +4,13 @@ namespace M450.Crypto.DLL.Cryptos;
 
 public class BitcoinData : ICryptoData
 {
-    private WebDriver driver = WebDriverManager.driver;
-
-    public BitcoinData() : base()
-    {
-        driver.Url = "https://www.blockchain.com/explorer/assets/btc";
-    }
+    private WebDriver driver => WebDriverManager.driver;
 
     public CryptoCurrency Currency => CryptoCurrency.BTC;
 
     public decimal GetCurrentPrice()
     {
+        driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/btc");
         var element = driver.FindElement(By.ClassName("sc-bb87d037-10"));
         var value = element.Text.Replace("$", "").Replace(",", "");
         decimal price = decimal.Parse(value);
@@ -22,7 +18,8 @@ public class BitcoinData : ICryptoData
     }
 
     public decimal GetTransactionVolume()
-    {
+    {        
+        driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/btc");
         var element =
             driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[4]/div[2]/div[3]/div[2]"));
         var value = element.Text;
@@ -33,6 +30,7 @@ public class BitcoinData : ICryptoData
 
     public decimal GetTransactionFees(TimeSpan s)
     {
+        driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/btc");
         var element = driver.FindElement(By.XPath(
             "//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[3]/section/div[2]/div/div/div/div[2]/div/div/div[3]/div/a[1]"));
         element.Click();
