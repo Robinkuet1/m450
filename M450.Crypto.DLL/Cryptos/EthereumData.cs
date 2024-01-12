@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace M450.Crypto.DLL.Cryptos;
 
-public class EtheriumData : ICryptoData
+public class EthereumData : ICryptoData
 {
     private WebDriver driver => WebDriverManager.driver;
 

@@ -10,7 +10,7 @@ class Program
         List<ICryptoData> services = new List<ICryptoData>()
         {
             new BitcoinData(),
-            new EtheriumData(),
+            new EthereumData(),
             new SolanaData()
         };
         
