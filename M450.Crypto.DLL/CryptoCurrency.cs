@@ -4,5 +4,6 @@ public enum CryptoCurrency
 {
     BTC,
     SOL,
+    ETH,
     XMR
 }

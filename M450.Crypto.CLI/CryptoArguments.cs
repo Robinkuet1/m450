@@ -13,12 +13,12 @@ public class CryptoArguments
     [Option('t', Required = false, HelpText = "Date")]
     public DateTime Date { get; set; }
     
-    [Option('p', Required = false, HelpText = "")]
+    [Option('p', Required = false, HelpText = "Price")]
     public bool Price { get; set; }
     
     [Option('l', HelpText = "List")]
     public bool List { get; set; }
     
-    [Option('v', Required = false, HelpText = "")]
+    [Option('v', Required = false, HelpText = "Volume")]
     public bool Volume { get; set; }
 }
