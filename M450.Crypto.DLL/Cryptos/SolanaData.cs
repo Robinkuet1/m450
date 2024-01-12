@@ -6,7 +6,7 @@ public class SolanaData : ICryptoData
 {
     private WebDriver driver => WebDriverManager.driver;
 
-    public CryptoCurrency Currency => CryptoCurrency.BTC;
+    public CryptoCurrency Currency => CryptoCurrency.SOL;
 
     public decimal GetCurrentPrice()
     {
@@ -48,6 +48,6 @@ public class SolanaData : ICryptoData
 
     public decimal GetTransactionFees(TimeSpan s)
     {
-        return null;
+        return 0;
     }
 }

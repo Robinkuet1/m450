@@ -6,7 +6,7 @@ public class EtheriumData : ICryptoData
 {
     private WebDriver driver => WebDriverManager.driver;
 
-    public CryptoCurrency Currency => CryptoCurrency.BTC;
+    public CryptoCurrency Currency => CryptoCurrency.ETH;
 
     public decimal GetCurrentPrice()
     {

@@ -10,6 +10,8 @@ class Program
         List<ICryptoData> services = new List<ICryptoData>()
         {
             new BitcoinData(),
+            new EtheriumData(),
+            new SolanaData()
         };
         
         CryptoApplication app = new (services, new ConsoleWrapper());
