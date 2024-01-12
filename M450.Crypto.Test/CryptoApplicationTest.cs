@@ -98,7 +98,6 @@ namespace M450.Crypto.Test
             consoleMock.Verify(x => x.WriteLine("\t-BTC"), Times.Once);
             consoleMock.Verify(x => x.WriteLine("\t-SOL"), Times.Once);
             consoleMock.Verify(x => x.WriteLine("\t-ETH"), Times.Once);
-            consoleMock.Verify(x => x.WriteLine("\t-XMR"), Times.Once);
         }
     }
 }

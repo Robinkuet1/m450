@@ -13,10 +13,16 @@ class Program
             new EthereumData(),
             new SolanaData()
         };
-        
-        CryptoApplication app = new (services, new ConsoleWrapper());
+
+        CryptoApplication app = new(services, new ConsoleWrapper());
 
         Parser.Default.ParseArguments<CryptoArguments>(args)
-            .WithParsed(app.Run);
+            .WithParsed(parsedArgs =>
+            {
+                if (parsedArgs.Valid())
+                {
+                    app.Run(parsedArgs);
+                }
+            });
     }
 }
