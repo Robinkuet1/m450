@@ -47,7 +47,7 @@ public class CryptoApplication
         var service = cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
         if (service == null)
         {
-            Console.WriteLine($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
+            console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
             return;
         }
         console.WriteLine($"Price of {arguments.CryptoCurrency} is currently {service.GetCurrentPrice():N1}$");
@@ -57,7 +57,7 @@ public class CryptoApplication
         var service = cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
         if (service == null)
         {
-            Console.WriteLine($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
+            console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
             return;
         }
         Console.WriteLine($"24h Transaction Volume of {arguments.CryptoCurrency} is currently {service.GetTransactionVolume():N1}$");

@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+using M450.Crypto.CLI;
 using M450.Crypto.DLL;
 using M450.Crypto.DLL.Cryptos;
 using Moq;
 using Xunit;
 
-namespace M450.Crypto.CLI.Tests
+namespace M450.Crypto.Test
 {
     public class CryptoApplicationTest
     {
@@ -48,7 +50,7 @@ namespace M450.Crypto.CLI.Tests
             cryptoApp.Run(arguments);
 
             // Assert
-            consoleMock.Verify(x => x.WriteLine($"Price of {cryptoCurrency} is currently 1000$"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine($"Price of {cryptoCurrency} is currently 1,000.0$"), Times.Once);
         }
 
         [Fact]
@@ -63,7 +65,7 @@ namespace M450.Crypto.CLI.Tests
             var arguments = new CryptoArguments { Price = true, CryptoCurrency = cryptoCurrency };
 
             var consoleMock = new Mock<IConsoleWrapper>();
-            consoleMock.Setup(x => x.WriteLine(It.IsAny<string>()));
+            consoleMock.Setup(x => x.WriteError(It.IsAny<string>()));
 
             var cryptoApp = new CryptoApplication(cryptos, consoleMock.Object);
 
@@ -71,7 +73,7 @@ namespace M450.Crypto.CLI.Tests
             cryptoApp.Run(arguments);
 
             // Assert
-            consoleMock.Verify(x => x.WriteLine($"Error: Currency: \"{cryptoCurrency}\" is not supported."), Times.Once);
+            consoleMock.Verify(x => x.WriteError("Error: Currency: \"SOL\" is not implemented."), Times.Once);
         }
 
         [Fact]
@@ -92,7 +94,11 @@ namespace M450.Crypto.CLI.Tests
             cryptoApp.Run(new CryptoArguments { List = true });
 
             // Assert
-            consoleMock.Verify(x => x.WriteLine("-Bitcoin"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine("Available Crypto Currencies are:"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine("\t-BTC"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine("\t-SOL"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine("\t-ETH"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine("\t-XMR"), Times.Once);
         }
     }
 }

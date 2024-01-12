@@ -1,8 +1,9 @@
-using Xunit;
 using CommandLine;
-using System;
+using Xunit;
 
-public class CryptoArgumentsTests
+namespace M450.Crypto.Test;
+
+public class CryptoArgumentsTest
 {
     [Fact]
     public void ParseArguments_ListOption_ParsesSuccessfully()
