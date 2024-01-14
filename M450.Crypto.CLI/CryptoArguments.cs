@@ -1,15 +1,19 @@
+using System.Globalization;
 using CommandLine;
 using M450.Crypto.DLL;
 
+namespace M450.Crypto.CLI;
 
 public class CryptoArguments
 {
     [Option('c', HelpText = "Crypto currency. Use crypto -l to get available currencies")]
     public CryptoCurrency? CryptoCurrency { get; set; }
 
-    [Option('b', HelpText = "Block")] public int Block { get; set; }
+    [Option('t', HelpText = "Approximate Date to get the price from")] public string? DateTime { get; set; }
 
-    [Option('t', HelpText = "Date")] public DateTime Date { get; set; }
+    public DateOnly? Date => DateTime == null ? null : DateOnly.Parse(DateTime, new CultureInfo("de-CH"));
+
+    [Option('b', HelpText = "Block")] public int Block { get; set; }
 
     [Option('p', HelpText = "Price")] public bool Price { get; set; }
 
@@ -36,6 +40,7 @@ public class CryptoArguments
             Console.WriteLine("Argument Error: If \"-v\" is used a Cryptocurrency has to be provided with \"-c\"");
         }
 
+        Console.WriteLine("");
         return false;
     }
 }

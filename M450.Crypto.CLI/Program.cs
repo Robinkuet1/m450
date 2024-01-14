@@ -6,7 +6,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        //temporary hide chrome error messages
         List<ICryptoData> services = new List<ICryptoData>()
         {
             new BitcoinData(),
@@ -15,7 +14,6 @@ class Program
         };
 
         CryptoApplication app = new(services, new ConsoleWrapper());
-
         Parser.Default.ParseArguments<CryptoArguments>(args)
             .WithParsed(parsedArgs =>
             {

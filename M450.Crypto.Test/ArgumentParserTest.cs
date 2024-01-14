@@ -1,5 +1,6 @@
 using System;
 using CommandLine;
+using M450.Crypto.CLI;
 using M450.Crypto.DLL;
 using Xunit;
 
@@ -42,9 +43,8 @@ public class CryptoArgumentsTest
             .WithParsed(parsedArguments => arguments = parsedArguments);
 
         Assert.NotNull(arguments);
-        Assert.Null(arguments.CryptoCurrency);
-        Assert.Equal(0, arguments.Block);
-        Assert.Equal(default(DateTime), arguments.Date);
+        Assert.Null(arguments!.CryptoCurrency);
+        Assert.Equal(default(DateOnly), arguments.Date);
         Assert.False(arguments.Price);
         Assert.False(arguments.List);
         Assert.False(arguments.Volume);
@@ -73,8 +73,7 @@ public class CryptoArgumentsTest
 
         Assert.NotNull(arguments);
         Assert.Equal(CryptoCurrency.BTC, arguments.CryptoCurrency);
-        Assert.Equal(0, arguments.Block);
-        Assert.Equal(new DateTime(2021, 10, 25), arguments.Date);
+        Assert.Equal(new (2021, 10, 25), arguments.Date);
         Assert.False(arguments.Price);
         Assert.False(arguments.List);
         Assert.False(arguments.Volume);

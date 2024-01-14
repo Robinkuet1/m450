@@ -1,3 +1,4 @@
+using M450.Crypto.CLI;
 using M450.Crypto.DLL;
 using Xunit;
 

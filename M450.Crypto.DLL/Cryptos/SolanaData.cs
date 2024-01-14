@@ -27,6 +27,11 @@ public class SolanaData : ICryptoData
         return -1;
     }
 
+    public decimal GetPricePerDate(DateOnly date)
+    {
+        throw new NotImplementedException();
+    }
+
     public decimal GetTransactionVolume()
     {        
         driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/sol");
@@ -46,7 +51,7 @@ public class SolanaData : ICryptoData
         return -1;
     }
 
-    public decimal GetTransactionFees(TimeSpan s)
+    public decimal GetTransactionFees()
     {
         return 0;
     }

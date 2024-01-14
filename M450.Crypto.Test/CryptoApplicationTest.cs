@@ -80,10 +80,13 @@ namespace M450.Crypto.Test
         public void Run_ListCommand_CallsConsoleWriteLineForAvailableCurrencies()
         {
             // Arrange
-            var cryptoDataMock = new Mock<ICryptoData>();
-            cryptoDataMock.Setup(x => x.Currency).Returns(CryptoCurrency.BTC);
+            var btcDataMock = new Mock<ICryptoData>();
+            btcDataMock.Setup(x => x.Currency).Returns(CryptoCurrency.BTC);
 
-            var cryptos = new List<ICryptoData> { cryptoDataMock.Object };
+            var ethDataMock = new Mock<ICryptoData>();
+            btcDataMock.Setup(x => x.Currency).Returns(CryptoCurrency.ETH);
+            
+            var cryptos = new List<ICryptoData> { btcDataMock.Object, ethDataMock.Object };
 
             var consoleMock = new Mock<IConsoleWrapper>();
             consoleMock.Setup(x => x.WriteLine(It.IsAny<string>()));
