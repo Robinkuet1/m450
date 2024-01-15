@@ -63,7 +63,7 @@ public class BitcoinData : ICryptoData
     }
 
     public decimal GetTransactionVolume()
-    {        
+    {
         driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/btc");
         var element =
             driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[4]/div[2]/div[3]/div[2]"));
@@ -114,16 +114,16 @@ public class BitcoinData : ICryptoData
 
         return -1;
     }
-    
+
     private static long CalculateBlockNumber(DateOnly targetDate)
     {
         DateOnly genesisBlockDate = new(2009, 1, 3);
-        
+
         double daysSinceGenesis = targetDate.DayNumber - genesisBlockDate.DayNumber;
         double blocksPerDay = 24.0 * 60.0 / 10.0 * 1.044762504807595;
         long blockNumber = (long)Math.Floor(daysSinceGenesis * blocksPerDay);
 
-        if(blockNumber < 0) Console.WriteLine("Error: You can't get the price of Bitcoin before it existed.");
+        if (blockNumber < 0) Console.WriteLine("Error: You can't get the price of Bitcoin before it existed.");
         return blockNumber;
     }
 }

@@ -22,7 +22,7 @@ public class CryptoArguments
 
     [Option('o', HelpText = "Output file path")]
     public string? OutFile { get; set; }
-    
+
     public bool Valid()
     {
         if (this.List) return true;
@@ -39,7 +39,7 @@ public class CryptoArguments
             {
                 Console.WriteLine("Argument Error: Option -t is not supported with Option -v");
                 return false;
-            } 
+            }
             if (this.CryptoCurrency != null) return true;
             Console.WriteLine("Argument Error: If \"-v\" is used a Cryptocurrency has to be provided with \"-c\"");
         }
@@ -50,7 +50,7 @@ public class CryptoArguments
             {
                 Console.WriteLine("Argument Error: Option -t is not supported with Option -f");
                 return false;
-            } 
+            }
             if (this.CryptoCurrency != null) return true;
             Console.WriteLine("Argument Error: If \"-f\" is used a Cryptocurrency has to be provided with \"-c\"");
         }

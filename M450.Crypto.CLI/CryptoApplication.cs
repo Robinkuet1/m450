@@ -64,13 +64,13 @@ public class CryptoApplication
             if (price != -1)
                 _console.WriteLine($"Price of 1 {arguments.CryptoCurrency} is currently {price:N1}$");
         }
-        
+
         if (arguments.OutFile is not ("" or null))
         {
             WriteToFile(arguments, price);
         }
     }
-    
+
     private void RunGetTransactionVolumeCommand(CryptoArguments arguments)
     {
         var service = _cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
@@ -91,12 +91,12 @@ public class CryptoApplication
 
     private void WriteToFile(CryptoArguments args, decimal value)
     {
-        if (!File.Exists(args.OutFile)) File.WriteAllText(args.OutFile!,"{}");
+        if (!File.Exists(args.OutFile)) File.WriteAllText(args.OutFile!, "{}");
         string existingJson = File.ReadAllText(args.OutFile!);
         string editedFile = JsonExporter.GetJsonString((CryptoCurrency)args.CryptoCurrency!, args, value, existingJson);
         File.WriteAllText(args.OutFile!, editedFile);
     }
-    
+
     private void RunGetTransactionFeesCommand(CryptoArguments arguments)
     {
         var service = _cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
@@ -107,7 +107,7 @@ public class CryptoApplication
         }
         Console.WriteLine($"Transaction Fees of {arguments.CryptoCurrency} is currently {service.GetTransactionFees():N1}$");
     }
-    
+
     private void RunListCommand()
     {
         _console.WriteLine("Available Crypto Currencies are:");

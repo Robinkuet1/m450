@@ -28,7 +28,7 @@ namespace M450.Crypto.Test
             // Assert
             cryptoDataMock.Verify(x => x.GetCurrentPrice(), Times.Once);
         }
-        
+
         [Fact]
         public void Run_GetPriceCommand_CallsConsoleWriteLine()
         {
@@ -50,9 +50,9 @@ namespace M450.Crypto.Test
             cryptoApp.Run(arguments);
 
             // Assert
-            consoleMock.Verify(x => x.WriteLine($"Price of 1 {cryptoCurrency} is currently 1’000.0$"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine($"Price of 1 {cryptoCurrency} is currently 1,000.0$"), Times.Once);
         }
-        
+
         [Fact]
         public void Run_GetPriceCommand_InvalidCurrency_CallsConsoleWriteLineWithError()
         {
@@ -85,7 +85,7 @@ namespace M450.Crypto.Test
 
             var ethDataMock = new Mock<ICryptoData>();
             btcDataMock.Setup(x => x.Currency).Returns(CryptoCurrency.ETH);
-            
+
             var cryptos = new List<ICryptoData> { btcDataMock.Object, ethDataMock.Object };
 
             var consoleMock = new Mock<IConsoleWrapper>();
@@ -126,7 +126,7 @@ namespace M450.Crypto.Test
             // Assert
             cryptoDataMock.Verify(x => x.GetTransactionVolume(), Times.Once);
         }
-        
+
         [Fact]
         public void Run_GetTransactionVolumeCommand_InvalidCurrency_CallsConsoleWriteLineWithError()
         {

@@ -32,7 +32,7 @@ public class JsonExporterTest
         var value = 100.0m;
         var existingJson = "InvalidJsonString";
         var expected = "Invalid JSON";
-        
+
         // Act
         var result = JsonExporter.GetJsonString(currency, args, value, existingJson);
 
@@ -52,7 +52,7 @@ public class JsonExporterTest
 
         // Act
         var result = JsonExporter.GetJsonString(currency, args, value, existingJson);
-        
+
         // Assert
         Assert.Equal(expected, result);
     }
@@ -83,7 +83,7 @@ public class JsonExporterTest
         var value = 100.0m;
         var existingJson = "{\"BTC\":{\"price\":{\"2022-01-01\":50.0}}}";
         var expected = "{\"BTC\":{\"price\":{\"2022-01-01\":50.0,\"15-01-2024\":100.0}}}";
-        
+
         // Act
         var result = JsonExporter.GetJsonString(currency, args, value, existingJson);
 

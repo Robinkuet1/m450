@@ -33,7 +33,7 @@ public class SolanaData : ICryptoData
     }
 
     public decimal GetTransactionVolume()
-    {        
+    {
         Driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/sol");
         var element =
             Driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[4]/div[2]/div[3]/div[2]"));

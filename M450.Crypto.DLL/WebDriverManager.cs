@@ -12,16 +12,16 @@ public static class WebDriverManager
 
         var driverService = ChromeDriverService.CreateDefaultService();
         driverService.SuppressInitialDiagnosticInformation = true;
-        
+
         var options = new ChromeOptions();
         options.AddArgument("ignore-certificate-errors");
         options.AddArgument("--ignore-ssl-errors=yes");
         options.AddArgument("--headless");
 
         _driver = new ChromeDriver(driverService, options);
-        
+
         Console.SetOut(currentConsole);
-    }           
+    }
 
 
     public static void Destroy()
@@ -30,12 +30,15 @@ public static class WebDriverManager
     }
 
     private static WebDriver? _driver;
-    public static WebDriver driver { 
-      get {
-        return _driver!;
-      } 
-      private set {
-        _driver = value;
-      } 
+    public static WebDriver driver
+    {
+        get
+        {
+            return _driver!;
+        }
+        private set
+        {
+            _driver = value;
+        }
     }
 }

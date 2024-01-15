@@ -62,7 +62,7 @@ public class EthereumData : ICryptoData
     }
 
     public decimal GetTransactionVolume()
-    {        
+    {
         Driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/eth");
         var element =
             Driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[4]/div[2]/div[3]/div[2]"));
@@ -107,7 +107,7 @@ public class EthereumData : ICryptoData
 
         return -1;
     }
-    
+
     static long CalculateBlockNumber(DateOnly targetDate)
     {
         // Ethereum started on July 30, 2015
@@ -125,7 +125,7 @@ public class EthereumData : ICryptoData
         // Calculate the block number
         long blockNumber = (long)(secondsSinceGenesis * blocksPerSecond);
 
-        if(blockNumber < 0) Console.WriteLine("Error: You can't get the price of Ethereum before it existed.");
+        if (blockNumber < 0) Console.WriteLine("Error: You can't get the price of Ethereum before it existed.");
         return blockNumber;
     }
 }
