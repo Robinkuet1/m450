@@ -21,7 +21,7 @@ public static class WebDriverManager
         options.AddArgument("--ignore-ssl-errors=yes");
         options.AddArgument("--headless");
 
-        driver = new ChromeDriver(driverService, options);
+        _driver = new ChromeDriver(driverService, options);
         
         //reactivate console output
         Console.SetOut(currentConsole);
@@ -33,5 +33,13 @@ public static class WebDriverManager
         driver.Quit();
     }
 
-    public static WebDriver driver { get; private set; }
+    private static WebDriver? _driver;
+    public static WebDriver driver { 
+      get {
+        return _driver!;
+      } 
+      private set {
+        _driver = value;
+      } 
+    }
 }
