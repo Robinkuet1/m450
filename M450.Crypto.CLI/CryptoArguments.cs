@@ -25,10 +25,8 @@ public class CryptoArguments
     
     public bool Valid()
     {
-        //if -l is used we dont need anything else
         if (this.List) return true;
 
-        //if -p is used we need the crypto currency
         if (this.Price)
         {
             if (this.CryptoCurrency != null) return true;

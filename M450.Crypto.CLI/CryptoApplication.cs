@@ -21,7 +21,6 @@ public class CryptoApplication
         }
         else
         {
-            //only initialize webdriver when needed
             DLL.WebDriverManager.Initialize();
 
             if (arguments.Volume)
@@ -93,13 +92,8 @@ public class CryptoApplication
     private void WriteToFile(CryptoArguments args, decimal value)
     {
         if (!File.Exists(args.OutFile)) File.WriteAllText(args.OutFile!,"{}");
-        // Read the existing content
         string existingJson = File.ReadAllText(args.OutFile!);
-
-        // Edit the content
         string editedFile = JsonExporter.GetJsonString((CryptoCurrency)args.CryptoCurrency!, args, value, existingJson);
-
-        // Write the edited content back to the file
         File.WriteAllText(args.OutFile!, editedFile);
     }
     

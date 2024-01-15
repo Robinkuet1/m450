@@ -4,14 +4,14 @@ namespace M450.Crypto.DLL.Cryptos;
 
 public class EthereumData : ICryptoData
 {
-    private WebDriver driver => WebDriverManager.driver;
+    private static WebDriver Driver => WebDriverManager.driver;
 
     public CryptoCurrency Currency => CryptoCurrency.ETH;
 
     public decimal GetCurrentPrice()
     {
-        driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/eth");
-        var element = driver.FindElement(By.ClassName("sc-bb87d037-10"));
+        Driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/eth");
+        var element = Driver.FindElement(By.ClassName("sc-bb87d037-10"));
         var value = element.Text.Replace("$", "").Replace(",", "");
 
         try
@@ -29,8 +29,8 @@ public class EthereumData : ICryptoData
 
     public decimal GetPricePerDate(DateOnly date)
     {
-        driver.Navigate().GoToUrl($"https://www.blockchain.com/explorer/blocks/eth/{CalculateBlockNumber(date)}");
-        var found = driver.FindElements(By.XPath("/html/body/div/div[2]/div[2]/main/div/div/div[1]/h1"));
+        Driver.Navigate().GoToUrl($"https://www.blockchain.com/explorer/blocks/eth/{CalculateBlockNumber(date)}");
+        var found = Driver.FindElements(By.XPath("/html/body/div/div[2]/div[2]/main/div/div/div[1]/h1"));
         if (found.Count != 0)
         {
             return -1;
@@ -39,11 +39,11 @@ public class EthereumData : ICryptoData
         try
         {
             var ethValue =
-                decimal.Parse(driver.FindElement(By.XPath(
+                decimal.Parse(Driver.FindElement(By.XPath(
                         "//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[2]/div[6]/div[2]/div/div"))
                     .Text
                     .Replace(",", "").Replace("USD", "")) /
-                decimal.Parse(driver.FindElement(By.XPath(
+                decimal.Parse(Driver.FindElement(By.XPath(
                         "//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[2]/div[5]/div[2]/div/div"))
                     .Text);
 
@@ -63,9 +63,9 @@ public class EthereumData : ICryptoData
 
     public decimal GetTransactionVolume()
     {        
-        driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/eth");
+        Driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/eth");
         var element =
-            driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[4]/div[2]/div[3]/div[2]"));
+            Driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[4]/div[2]/div[3]/div[2]"));
         var value = element.Text.Replace("$", "").Replace(",", "");
         try
         {
@@ -82,14 +82,14 @@ public class EthereumData : ICryptoData
 
     public decimal GetTransactionFees()
     {
-        driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/eth");
+        Driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/eth");
 
-        var blockNumberElement = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[3]/section/div[2]/div/div/div/div[2]/div/div/div[3]/div/a[2]/div/div/div[2]"));
+        var blockNumberElement = Driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[3]/section/div[2]/div/div/div/div[2]/div/div/div[3]/div/a[2]/div/div/div[2]"));
         var blockNumber = blockNumberElement.Text.Replace("#", "");
 
-        driver.Navigate().GoToUrl($"https://www.blockchain.com/explorer/blocks/eth/{blockNumber}");
+        Driver.Navigate().GoToUrl($"https://www.blockchain.com/explorer/blocks/eth/{blockNumber}");
 
-        var usdValueElement = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[2]/div[16]/div[2]/div/div"));
+        var usdValueElement = Driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[2]/div[16]/div[2]/div/div"));
         var usdValue = usdValueElement.Text.Replace(" USD", "").Replace(",", ".");
 
         var transactionsElement = usdValueElement.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[2]/div[4]/div[2]/div/div"));

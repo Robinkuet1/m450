@@ -117,16 +117,10 @@ public class BitcoinData : ICryptoData
     
     private static long CalculateBlockNumber(DateOnly targetDate)
     {
-        // Bitcoin started on January 3, 2009
         DateOnly genesisBlockDate = new(2009, 1, 3);
         
-        // Calculate the number of days between the target date and the genesis block date
         double daysSinceGenesis = targetDate.DayNumber - genesisBlockDate.DayNumber;
-
-        // Average block time is 10 minutes, so calculate blocks per day
         double blocksPerDay = 24.0 * 60.0 / 10.0 * 1.044762504807595;
-
-        // Calculate the block number
         long blockNumber = (long)Math.Floor(daysSinceGenesis * blocksPerDay);
 
         if(blockNumber < 0) Console.WriteLine("Error: You can't get the price of Bitcoin before it existed.");

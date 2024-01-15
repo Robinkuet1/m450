@@ -7,12 +7,9 @@ public static class WebDriverManager
 {
     public static void Initialize()
     {
-        //hide console output during initialisation
         var currentConsole = Console.Out;
         Console.SetOut(TextWriter.Null);
 
-        
-        //suppress log output and hide browser window
         var driverService = ChromeDriverService.CreateDefaultService();
         driverService.SuppressInitialDiagnosticInformation = true;
         
@@ -23,7 +20,6 @@ public static class WebDriverManager
 
         _driver = new ChromeDriver(driverService, options);
         
-        //reactivate console output
         Console.SetOut(currentConsole);
     }           
 
