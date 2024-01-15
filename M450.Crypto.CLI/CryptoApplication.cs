@@ -4,13 +4,13 @@ using M450.Crypto.DLL.Cryptos;
 namespace M450.Crypto.CLI;
 public class CryptoApplication
 {
-    private readonly List<ICryptoData> cryptos;
-    private readonly IConsoleWrapper console;
+    private readonly List<ICryptoData> _cryptos;
+    private readonly IConsoleWrapper _console;
 
     public CryptoApplication(List<ICryptoData> cryptos, IConsoleWrapper console)
     {
-        this.cryptos = cryptos;
-        this.console = console;
+        this._cryptos = cryptos;
+        this._console = console;
     }
 
     public void Run(CryptoArguments arguments)
@@ -44,10 +44,10 @@ public class CryptoApplication
 
     private void RunGetPriceCommand(CryptoArguments arguments)
     {
-        var service = cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
+        var service = _cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
         if (service == null)
         {
-            console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
+            _console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
             return;
         }
 
@@ -56,14 +56,14 @@ public class CryptoApplication
         {
             price = service.GetPricePerDate((DateOnly)arguments.Date);
             if (price != -1)
-                console.WriteLine(
+                _console.WriteLine(
                 $"Price of 1 {arguments.CryptoCurrency} used to be approximately {price:N1}$ on {arguments.Date.Value.Day}.{arguments.Date.Value.Month}.{arguments.Date.Value.Year}");
         }
         else
         {
             price = service.GetCurrentPrice();
             if (price != -1)
-                console.WriteLine($"Price of 1 {arguments.CryptoCurrency} is currently {price:N1}$");
+                _console.WriteLine($"Price of 1 {arguments.CryptoCurrency} is currently {price:N1}$");
         }
         
         if (arguments.OutFile is not ("" or null))
@@ -74,10 +74,10 @@ public class CryptoApplication
     
     private void RunGetTransactionVolumeCommand(CryptoArguments arguments)
     {
-        var service = cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
+        var service = _cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
         if (service == null)
         {
-            console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
+            _console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
             return;
         }
 
@@ -105,10 +105,10 @@ public class CryptoApplication
     
     private void RunGetTransactionFeesCommand(CryptoArguments arguments)
     {
-        var service = cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
+        var service = _cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
         if (service == null)
         {
-            console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
+            _console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
             return;
         }
         Console.WriteLine($"Transaction Fees of {arguments.CryptoCurrency} is currently {service.GetTransactionFees():N1}$");
@@ -116,10 +116,10 @@ public class CryptoApplication
     
     private void RunListCommand()
     {
-        console.WriteLine("Available Crypto Currencies are:");
+        _console.WriteLine("Available Crypto Currencies are:");
         foreach (var c in Enum.GetValues(typeof(CryptoCurrency)))
         {
-            console.WriteLine($"\t-{c}");
+            _console.WriteLine($"\t-{c}");
         }
     }
 }
