@@ -1,8 +1,9 @@
 ﻿using CommandLine;
-using M450.Crypto.CLI;
 using M450.Crypto.DLL.Cryptos;
 
-class Program
+namespace M450.Crypto.CLI;
+
+abstract class Program
 {
     static void Main(string[] args)
     {

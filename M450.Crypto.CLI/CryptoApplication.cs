@@ -58,7 +58,7 @@ public class CryptoApplication
         {
             var price = service.GetCurrentPrice();
             if (price != -1)
-                Console.WriteLine($"Price of 1 {arguments.CryptoCurrency} is currently {price:N1}$");
+                console.WriteLine($"Price of 1 {arguments.CryptoCurrency} is currently {price:N1}$");
         }
     }
     

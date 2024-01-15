@@ -44,7 +44,7 @@ public class CryptoArgumentsTest
 
         Assert.NotNull(arguments);
         Assert.Null(arguments!.CryptoCurrency);
-        Assert.Equal(default(DateOnly), arguments.Date);
+        Assert.Null(arguments.Date);
         Assert.False(arguments.Price);
         Assert.False(arguments.List);
         Assert.False(arguments.Volume);
