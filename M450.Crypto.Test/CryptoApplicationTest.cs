@@ -52,9 +52,7 @@ namespace M450.Crypto.Test
             // Assert
             consoleMock.Verify(x => x.WriteLine($"Price of 1 {cryptoCurrency} is currently 1’000.0$"), Times.Once);
         }
-
-
-
+        
         [Fact]
         public void Run_GetPriceCommand_InvalidCurrency_CallsConsoleWriteLineWithError()
         {

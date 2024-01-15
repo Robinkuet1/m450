@@ -83,15 +83,29 @@ public class EthereumData : ICryptoData
     public decimal GetTransactionFees()
     {
         driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/eth");
-        var element = driver.FindElement(By.XPath(
-            "//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[3]/section/div[2]/div/div/div/div[2]/div/div/div[3]/div/a[1]"));
-        element.Click();
-        element.FindElement(By.XPath(
-            "//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[1]/div[16]/div[2]/div/div"));
-        var value = element.Text;
-        decimal fee = decimal.Parse(value);
 
-        return fee;
+        var blockNumberElement = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[3]/section/div[2]/div/div/div/div[2]/div/div/div[3]/div/a[2]/div/div/div[2]"));
+        var blockNumber = blockNumberElement.Text.Replace("#", "");
+
+        driver.Navigate().GoToUrl($"https://www.blockchain.com/explorer/blocks/eth/{blockNumber}");
+
+        var usdValueElement = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[2]/div[16]/div[2]/div/div"));
+        var usdValue = usdValueElement.Text.Replace(" USD", "").Replace(",", ".");
+
+        var transactionsElement = usdValueElement.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[2]/div[4]/div[2]/div/div"));
+        var transactions = transactionsElement.Text;
+        try
+        {
+            decimal fee = decimal.Parse(usdValue);
+            decimal trans = decimal.Parse(transactions);
+            return fee / trans;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Internal Error: {e}");
+        }
+
+        return -1;
     }
     
     static long CalculateBlockNumber(DateOnly targetDate)
