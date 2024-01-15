@@ -33,7 +33,11 @@ public class CryptoApplication
             {
                 RunGetPriceCommand(arguments);
             }
-            
+
+            if (arguments.Fee)
+            {
+                RunGetTransactionFeesCommand(arguments);
+            }
             DLL.WebDriverManager.Destroy();
         }
     }
@@ -97,6 +101,17 @@ public class CryptoApplication
 
         // Write the edited content back to the file
         File.WriteAllText(args.OutFile!, editedFile);
+    }
+    
+    private void RunGetTransactionFeesCommand(CryptoArguments arguments)
+    {
+        var service = cryptos.Find(x => x.Currency == arguments.CryptoCurrency);
+        if (service == null)
+        {
+            console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
+            return;
+        }
+        Console.WriteLine($"Transaction Fees of {arguments.CryptoCurrency} is currently {service.GetTransactionFees():N1}$");
     }
     
     private void RunListCommand()

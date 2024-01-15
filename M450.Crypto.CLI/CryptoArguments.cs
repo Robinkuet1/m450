@@ -17,8 +17,8 @@ public class CryptoArguments
 
     [Option('l', HelpText = "List")] public bool List { get; set; }
 
-    [Option('v', Required = false, HelpText = "Volume")]
-    public bool Volume { get; set; }
+    [Option('v', Required = false, HelpText = "Volume")] public bool Volume { get; set; }
+    [Option('f', Required = false, HelpText = "Transaction Fee")] public bool Fee { get; set; }
 
     [Option('o', HelpText = "Output file path")]
     public string? OutFile { get; set; }
@@ -44,6 +44,17 @@ public class CryptoArguments
             } 
             if (this.CryptoCurrency != null) return true;
             Console.WriteLine("Argument Error: If \"-v\" is used a Cryptocurrency has to be provided with \"-c\"");
+        }
+
+        if (this.Fee)
+        {
+            if (this.Date != null)
+            {
+                Console.WriteLine("Argument Error: Option -t is not supported with Option -f");
+                return false;
+            } 
+            if (this.CryptoCurrency != null) return true;
+            Console.WriteLine("Argument Error: If \"-f\" is used a Cryptocurrency has to be provided with \"-c\"");
         }
 
         Console.WriteLine("Use --help to get all available commands.");
