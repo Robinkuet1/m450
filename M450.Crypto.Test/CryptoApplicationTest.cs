@@ -28,7 +28,7 @@ namespace M450.Crypto.Test
             // Assert
             cryptoDataMock.Verify(x => x.GetCurrentPrice(), Times.Once);
         }
-
+        
         [Fact]
         public void Run_GetPriceCommand_CallsConsoleWriteLine()
         {
@@ -50,8 +50,10 @@ namespace M450.Crypto.Test
             cryptoApp.Run(arguments);
 
             // Assert
-            consoleMock.Verify(x => x.WriteLine($"Price of {cryptoCurrency} is currently 1,000.0$"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine($"Price of 1 {cryptoCurrency} is currently 1,000.0$"), Times.Once);
         }
+
+
 
         [Fact]
         public void Run_GetPriceCommand_InvalidCurrency_CallsConsoleWriteLineWithError()
@@ -101,6 +103,53 @@ namespace M450.Crypto.Test
             consoleMock.Verify(x => x.WriteLine("\t-BTC"), Times.Once);
             consoleMock.Verify(x => x.WriteLine("\t-SOL"), Times.Once);
             consoleMock.Verify(x => x.WriteLine("\t-ETH"), Times.Once);
+        }
+
+        [Fact]
+        public void Run_GetTransactionVolumeCommand_CallsGetTransactionVolume()
+        {
+            // Arrange
+            var cryptoCurrency = CryptoCurrency.BTC;
+            var cryptoDataMock = new Mock<ICryptoData>();
+            cryptoDataMock.Setup(x => x.Currency).Returns(cryptoCurrency);
+            cryptoDataMock.Setup(x => x.GetTransactionVolume()).Returns(500000);
+
+            var cryptos = new List<ICryptoData> { cryptoDataMock.Object };
+            var arguments = new CryptoArguments { Volume = true, CryptoCurrency = cryptoCurrency };
+
+            var consoleMock = new Mock<IConsoleWrapper>();
+            consoleMock.Setup(x => x.WriteLine(It.IsAny<string>()));
+
+            var cryptoApp = new CryptoApplication(cryptos, consoleMock.Object);
+
+            // Act
+            cryptoApp.Run(arguments);
+
+            // Assert
+            cryptoDataMock.Verify(x => x.GetTransactionVolume(), Times.Once);
+        }
+        
+        [Fact]
+        public void Run_GetTransactionVolumeCommand_InvalidCurrency_CallsConsoleWriteLineWithError()
+        {
+            // Arrange
+            var cryptoCurrency = CryptoCurrency.SOL;
+            var cryptoDataMock = new Mock<ICryptoData>();
+            cryptoDataMock.Setup(x => x.Currency).Returns(CryptoCurrency.BTC);
+
+            var cryptos = new List<ICryptoData> { cryptoDataMock.Object };
+            var arguments = new CryptoArguments { Volume = true, CryptoCurrency = cryptoCurrency };
+
+            var consoleMock = new Mock<IConsoleWrapper>();
+            consoleMock.Setup(x => x.WriteError(It.IsAny<string>()));
+
+            var cryptoApp = new CryptoApplication(cryptos, consoleMock.Object);
+
+            // Act
+            cryptoApp.Run(arguments);
+
+            // Assert
+            consoleMock.Verify(x => x.WriteError($"Error: Currency: \"{cryptoCurrency}\" is not implemented."), Times.Once);
         }
     }
 }
