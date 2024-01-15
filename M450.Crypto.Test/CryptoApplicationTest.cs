@@ -50,7 +50,7 @@ namespace M450.Crypto.Test
             cryptoApp.Run(arguments);
 
             // Assert
-            consoleMock.Verify(x => x.WriteLine($"Price of 1 {cryptoCurrency} is currently 1,000.0$"), Times.Once);
+            consoleMock.Verify(x => x.WriteLine($"Price of 1 {cryptoCurrency} is currently 1’000.0$"), Times.Once);
         }
 
 

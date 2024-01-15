@@ -7,15 +7,15 @@ namespace M450.Crypto.CLI;
 public class CryptoArguments
 {
     [Option('c', HelpText = "Crypto currency. Use crypto -l to get available currencies")]
-    public CryptoCurrency? CryptoCurrency { get; set; }
+    public CryptoCurrency? CryptoCurrency { get; init; }
 
     [Option('t', HelpText = "Approximate Date to get the price from")] public string? DateTime { get; set; }
 
     public DateOnly? Date => DateTime == null ? null : DateOnly.Parse(DateTime, new CultureInfo("de-CH"));
 
-    [Option('p', HelpText = "Price")] public bool Price { get; set; }
+    [Option('p', HelpText = "Price")] public bool Price { get; init; }
 
-    [Option('l', HelpText = "List")] public bool List { get; set; }
+    [Option('l', HelpText = "List")] public bool List { get; init; }
 
     [Option('v', Required = false, HelpText = "Volume")] public bool Volume { get; set; }
     [Option('f', Required = false, HelpText = "Transaction Fee")] public bool Fee { get; set; }

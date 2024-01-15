@@ -51,7 +51,7 @@ public class CryptoApplication
             return;
         }
 
-        decimal price = -1;
+        decimal price;
         if (arguments.Date != null)
         {
             price = service.GetPricePerDate((DateOnly)arguments.Date);
@@ -119,7 +119,7 @@ public class CryptoApplication
         console.WriteLine("Available Crypto Currencies are:");
         foreach (var c in Enum.GetValues(typeof(CryptoCurrency)))
         {
-            console.WriteLine($"\t-{c.ToString()}");
+            console.WriteLine($"\t-{c}");
         }
     }
 }
