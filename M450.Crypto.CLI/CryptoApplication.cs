@@ -47,18 +47,24 @@ public class CryptoApplication
             return;
         }
 
+        decimal price = -1;
         if (arguments.Date != null)
         {
-            var price = service.GetPricePerDate((DateOnly)arguments.Date);
+            price = service.GetPricePerDate((DateOnly)arguments.Date);
             if (price != -1)
                 console.WriteLine(
                 $"Price of 1 {arguments.CryptoCurrency} used to be approximately {price:N1}$ on {arguments.Date.Value.Day}.{arguments.Date.Value.Month}.{arguments.Date.Value.Year}");
         }
         else
         {
-            var price = service.GetCurrentPrice();
+            price = service.GetCurrentPrice();
             if (price != -1)
                 console.WriteLine($"Price of 1 {arguments.CryptoCurrency} is currently {price:N1}$");
+        }
+        
+        if (arguments.OutFile is not ("" or null))
+        {
+            WriteToFile(arguments, price);
         }
     }
     
@@ -70,7 +76,27 @@ public class CryptoApplication
             console.WriteError($"Error: Currency: \"{arguments.CryptoCurrency}\" is not implemented.");
             return;
         }
-        Console.WriteLine($"24h Transaction Volume of {arguments.CryptoCurrency} is currently {service.GetTransactionVolume():N1}$");
+
+        var volume = service.GetTransactionVolume();
+        Console.WriteLine($"24h Transaction Volume of {arguments.CryptoCurrency} is currently {volume:N1}$");
+
+        if (arguments.OutFile is not ("" or null))
+        {
+            WriteToFile(arguments, volume);
+        }
+    }
+
+    private void WriteToFile(CryptoArguments args, decimal value)
+    {
+        if (!File.Exists(args.OutFile)) File.WriteAllText(args.OutFile!,"{}");
+        // Read the existing content
+        string existingJson = File.ReadAllText(args.OutFile!);
+
+        // Edit the content
+        string editedFile = JsonExporter.GetJsonString((CryptoCurrency)args.CryptoCurrency!, args, value, existingJson);
+
+        // Write the edited content back to the file
+        File.WriteAllText(args.OutFile!, editedFile);
     }
     
     private void RunListCommand()
