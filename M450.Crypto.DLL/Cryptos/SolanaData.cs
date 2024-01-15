@@ -53,6 +53,6 @@ public class SolanaData : ICryptoData
 
     public decimal GetTransactionFees()
     {
-        return 0;
+        throw new NotImplementedException();
     }
 }
