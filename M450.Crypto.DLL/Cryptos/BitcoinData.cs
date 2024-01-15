@@ -84,15 +84,35 @@ public class BitcoinData : ICryptoData
     public decimal GetTransactionFees()
     {
         driver.Navigate().GoToUrl("https://www.blockchain.com/explorer/assets/btc");
-        var element = driver.FindElement(By.XPath(
-            "//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[3]/section/div[2]/div/div/div/div[2]/div/div/div[3]/div/a[1]"));
-        element.Click();
-        element.FindElement(By.XPath(
-            "//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[1]/div[16]/div[2]/div/div"));
-        var value = element.Text;
-        decimal fee = decimal.Parse(value);
 
-        return fee;
+        var blockNumberElement = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div[3]/section/div[2]/div/div/div/div[2]/div/div/div[3]/div/a[1]/div/div/div[2]"));
+        var blockNumber = blockNumberElement.Text.Replace("#", "");
+
+        driver.Navigate().GoToUrl($"https://www.blockchain.com/explorer/blocks/btc/{blockNumber}");
+
+        var btcValueElement = driver.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[1]/div[15]/div[2]/div/div"));
+        var btcValue = btcValueElement.Text.Replace("BTC", "").Replace(",", ".");
+
+        var inputElement = btcValueElement.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[1]/div[9]/div[2]/div/div"));
+        var inputRefactored = inputElement.Text.Replace(".", "").Replace(",", ".").Replace("BTC", "");
+
+        var usdValueElement = btcValueElement.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[1]/div[5]/div[2]/div/div"));
+        var usdValue = usdValueElement.Text.Replace("$", "").Replace(".", "");
+
+        var transactionsElement = btcValueElement.FindElement(By.XPath("//*[@id=\"__next\"]/div[2]/div[2]/main/div/div/div/div[1]/section[1]/div/div/div[2]/div[1]/div[11]/div[2]/div/div"));
+        var transactions = transactionsElement.Text.Replace(".", "");
+
+        try
+        {
+            var transactionFees = decimal.Parse(usdValue) / decimal.Parse(inputRefactored) * decimal.Parse(btcValue);
+            return transactionFees / decimal.Parse(transactions);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Internal Error: {e}");
+        }
+
+        return -1;
     }
     
     private static long CalculateBlockNumber(DateOnly targetDate)
