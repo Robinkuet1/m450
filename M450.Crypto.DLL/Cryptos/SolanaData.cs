@@ -21,7 +21,7 @@ public class SolanaData : ICryptoData
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Internal Error: {e.ToString()}");
+            Console.WriteLine($"Internal Error: {e}");
         }
 
         return -1;
@@ -45,7 +45,7 @@ public class SolanaData : ICryptoData
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Internal Error: {e.ToString()}");
+            Console.WriteLine($"Internal Error: {e}");
         }
 
         return -1;

@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using M450.Crypto.DLL;
 using Newtonsoft.Json;
 
@@ -18,7 +17,7 @@ public class JsonExporter
             var date = (args.Date ?? DateOnly.FromDateTime(DateTime.Today)).ToString("dd-MM-yyyy");
 
             deserialized ??= new Dictionary<string, Dictionary<string, Dictionary<string, decimal>>>();
-            if (!deserialized!.ContainsKey(currency.ToString()))
+            if (!deserialized.ContainsKey(currency.ToString()))
             {
                 deserialized[currency.ToString()] = new Dictionary<string, Dictionary<string, decimal>>();
             }
@@ -28,13 +27,13 @@ public class JsonExporter
                 deserialized[currency.ToString()][operation] = new Dictionary<string, decimal>();
             }
 
-            deserialized[currency.ToString()][operation][date.ToString()] = value;
+            deserialized[currency.ToString()][operation][date] = value;
 
             return JsonConvert.SerializeObject(deserialized);
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Internal Error: {e.ToString()}");
+            Console.WriteLine($"Internal Error: {e}");
         }
 
         return "Invalid JSON";

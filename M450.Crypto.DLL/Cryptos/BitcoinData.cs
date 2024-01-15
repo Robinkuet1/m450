@@ -21,7 +21,7 @@ public class BitcoinData : ICryptoData
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Internal Error: {e.ToString()}");
+            Console.WriteLine($"Internal Error: {e}");
         }
 
         return -1;
@@ -50,13 +50,13 @@ public class BitcoinData : ICryptoData
 
             return btcValue;
         }
-        catch (System.DivideByZeroException)
+        catch (DivideByZeroException)
         {
             Console.WriteLine("Error: This date isn't available to get price from. Try a later date");
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Internal Error: {e.ToString()}");
+            Console.WriteLine($"Internal Error: {e}");
         }
 
         return -1;
@@ -75,7 +75,7 @@ public class BitcoinData : ICryptoData
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Internal Error: {e.ToString()}");
+            Console.WriteLine($"Internal Error: {e}");
         }
 
         return -1;
